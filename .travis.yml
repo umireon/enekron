@@ -8,6 +8,7 @@ env:
   - DATABASE_DSN=pgsql:user=postgres
   - DATABASE_DSN=sqlite:$PWD/default.sqlite3
 before_script:
+  - echo "extension = xdebug.so" >> ~/.phpenv/versions/5.2/etc/php.ini
   - (cd cli; composer install)
   - (cd cli; vendor/bin/phpmig migrate)
 script:
