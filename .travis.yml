@@ -4,7 +4,9 @@ php:
   - 5.3
   - 5.4
   - 5.5
-env: DATABASE_DSN=pgsql:user=postgres
+env:
+  - DATABASE_DSN=pgsql:user=postgres
+  - DATABASE_DSN=sqlite:default.sqlite3
 before_script:
   - (cd dbmigrate; composer install)
   - (cd dbmigrate; vendor/bin/phpmig migrate)
