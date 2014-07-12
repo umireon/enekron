@@ -11,3 +11,8 @@ before_script:
   - (cd dbmigrate; composer install)
   - (cd dbmigrate; vendor/bin/phpmig migrate)
 script: (cd application/tests; phpunit)
+cache:
+  directories:
+    - vendor
+    - dbmigrate/vendor
+    - $HOME/.composer
