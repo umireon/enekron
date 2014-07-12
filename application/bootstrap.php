@@ -83,7 +83,7 @@ if (isset($_SERVER['KOHANA_ENV']))
  */
 Kohana::init(array(
 	'base_url'   => '/',
-        'cache_dir' => '/tmp',
+	'cache_dir' => '/tmp',
 ));
 
 /**
@@ -109,7 +109,7 @@ Kohana::modules(array(
 	'orm'        => MODPATH.'orm',        // Object Relationship Mapping
 	// 'unittest'   => MODPATH.'unittest',   // Unit testing
 	// 'userguide'  => MODPATH.'userguide',  // User guide and API documentation
-	));
+));
 
 /**
  * Cookie Salt
