@@ -6,19 +6,20 @@ php:
   - 5.5
 env:
   matrix:
-  - DATABASE_DSN=pgsql:user=postgres
-  - DATABASE_DSN=sqlite:$PWD/default.sqlite3
+    - DATABASE_DSN=pgsql:user=postgres
+    - DATABASE_DSN=sqlite:$PWD/default.sqlite3
   global:
-    secure: HjZDk4acp4dUq+tZPJgJv2mSIJgu25fOukFUPUFB7o6xHaHjq9jHZlh+5VwpEZY7YWGlrhDDnVC3Q7Dr3drUKNNZCAwk7McbZbiGcUjTU1PV2uGhL9rRxcTL0DS14jGBtqIlklkkqB+MC0GzzxuJpXS64JP/ysCxH7e0HmCq+8M=
+    - CODECLIMATE_REPO_TOKEN=9658592d8dd523c19a2da3858a8ba5f0a623d7be56aaf75e7188ae4e0fb7cdcf 
 before_script:
-  - echo "extension = xdebug.so" >> ~/.phpenv/versions/5.2/etc/php.ini
-  - "(cd cli; composer install)"
-  - "(cd cli; vendor/bin/phpmig migrate)"
+  - if [ $(phpenv version-name) = 5.2 ]; then echo "zend_extension = xdebug.so" >> ~/.phpenv/versions/5.2/etc/php.ini; fi
+  - if [ $(phpenv version-name) = 5.2 ]; then pear install phpunit/DbUnit; fi
+  - (cd cli; composer install)
+  - (cd cli; vendor/bin/phpmig migrate)
 script:
   - mkdir -p build/logs
   - phpunit
 after_script:
-  - "(cd cli; vendor/bin/coveralls -v)"
+  - (cd cli; vendor/bin/coveralls -v)
   - cli/vendor/bin/test-reporter
 cache:
   directories:
