@@ -9,8 +9,12 @@
  */
 class Model_TackTest extends PHPUnit_Framework_TestCase
 {
-    public function testNew()
+    public function testCreate()
     {
         $tack = new Model_Tack;
+        $tack->title = "title";
+        $tack->content = "content";
+        $tack->created_by = "0";
+        $tack->save();
     }
 } // End TackTest
