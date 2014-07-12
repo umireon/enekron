@@ -1,0 +1,10 @@
+<phpunit bootstrap="index.php">
+	<testsuites>
+		<testsuite name="Kohana Model Tests">
+			<directory>application/tests/model/</directory>
+		</testsuite>
+	</testsuites>
+	<logging>
+		<log type="coverage-clover" target="build/logs/clover.xml"/>
+	</logging>
+</phpunit>
