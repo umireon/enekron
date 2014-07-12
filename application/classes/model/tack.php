@@ -1,7 +1,5 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-require_once('markdown.php');
-
 class Model_Tack extends ORM {
 	protected $_table_name = 'tacks';
 	protected $_table_columns = array(
