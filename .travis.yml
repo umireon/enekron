@@ -1,0 +1,18 @@
+language: php
+php:
+  - 5.2
+  - 5.3
+  - 5.4
+  - 5.5
+env:
+  - DATABASE_DSN=pgsql:user=postgres
+  - DATABASE_DSN=sqlite:$PWD/default.sqlite3
+before_script:
+  - (cd dbmigrate; composer install)
+  - (cd dbmigrate; vendor/bin/phpmig migrate)
+script: (cd application/tests; phpunit)
+cache:
+  directories:
+    - vendor
+    - dbmigrate/vendor
+    - $HOME/.composer
