@@ -4,4 +4,4 @@ php:
   - 5.3
   - 5.4
   - 5.5
-script: phpunit application/tests
+script: (cd application/tests; phpunit)
