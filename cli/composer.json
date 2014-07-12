@@ -4,6 +4,7 @@
 		"davedevelopment/phpmig": "*",
 		"pimple/pimple": "~2.1",
 		"doctrine/dbal": "2.3.4",
-		"satooshi/php-coveralls": "dev-master"
+		"satooshi/php-coveralls": "dev-master",
+		"codeclimate/php-test-reporter": "dev-master"
 	}
 }
