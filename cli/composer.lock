@@ -3,9 +3,61 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "7d423c23262147fd6f10686555cc8d1a",
+    "hash": "9db09e64a8f89fbfee2c9795501fd43e",
     "packages": [],
     "packages-dev": [
+        {
+            "name": "codeclimate/php-test-reporter",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/codeclimate/php-test-reporter.git",
+                "reference": "ccda2c9f2032fcbbd01d9a85121dab8c0d1cb6e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/codeclimate/php-test-reporter/zipball/ccda2c9f2032fcbbd01d9a85121dab8c0d1cb6e0",
+                "reference": "ccda2c9f2032fcbbd01d9a85121dab8c0d1cb6e0",
+                "shasum": ""
+            },
+            "require": {
+                "guzzle/guzzle": ">=3.0",
+                "php": ">=5.3",
+                "satooshi/php-coveralls": "dev-master",
+                "symfony/console": ">=2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*@stable"
+            },
+            "bin": [
+                "composer/bin/test-reporter"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "CodeClimate\\Component": "src/",
+                    "CodeClimate\\Bundle": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Code Climate",
+                    "email": "hello@codeclimate.com",
+                    "homepage": "https://codeclimate.com"
+                }
+            ],
+            "description": "PHP client for reporting test coverage to Code Climate",
+            "homepage": "https://github.com/codeclimate/php-test-reporter",
+            "keywords": [
+                "codeclimate",
+                "coverage"
+            ],
+            "time": "2014-07-11 00:40:07"
+        },
         {
             "name": "davedevelopment/phpmig",
             "version": "v1.0.0",
@@ -1166,7 +1218,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "satooshi/php-coveralls": 20
+        "satooshi/php-coveralls": 20,
+        "codeclimate/php-test-reporter": 20
     },
     "platform": [],
     "platform-dev": {

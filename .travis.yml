@@ -5,19 +5,23 @@ php:
   - 5.4
   - 5.5
 env:
+  matrix:
   - DATABASE_DSN=pgsql:user=postgres
   - DATABASE_DSN=sqlite:$PWD/default.sqlite3
+  global:
+    secure: HjZDk4acp4dUq+tZPJgJv2mSIJgu25fOukFUPUFB7o6xHaHjq9jHZlh+5VwpEZY7YWGlrhDDnVC3Q7Dr3drUKNNZCAwk7McbZbiGcUjTU1PV2uGhL9rRxcTL0DS14jGBtqIlklkkqB+MC0GzzxuJpXS64JP/ysCxH7e0HmCq+8M=
 before_script:
   - echo "extension = xdebug.so" >> ~/.phpenv/versions/5.2/etc/php.ini
-  - (cd cli; composer install)
-  - (cd cli; vendor/bin/phpmig migrate)
+  - "(cd cli; composer install)"
+  - "(cd cli; vendor/bin/phpmig migrate)"
 script:
   - mkdir -p build/logs
   - phpunit
 after_script:
-  - (cd cli; vendor/bin/coveralls -v)
+  - "(cd cli; vendor/bin/coveralls -v)"
+  - cli/vendor/bin/test-reporter
 cache:
   directories:
     - vendor
     - dbmigrate/vendor
-    - $HOME/.composer
+    - "$HOME/.composer"
