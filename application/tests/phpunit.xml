@@ -1,0 +1,6 @@
+<phpunit bootstrap="../../index.php">
+    <testsuites>
+        <testsuite name="Kohana Tests">
+        </testsuite>
+    </testsuites>
+</phpunit>
