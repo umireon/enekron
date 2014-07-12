@@ -1,0 +1,7 @@
+tacks:
+  - id: 1
+    title: test
+    content: cten
+    created_by: 0
+    created_at: 1
+    modified_at: 2
