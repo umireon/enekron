@@ -1,5 +1,11 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
+/**
+ * @package    Model
+ * @author     Kaito Udagawa
+ * @copyright  Copyright (c) 2014 Kaito Udagawa
+ * @license    http://opensource.org/licenses/MIT
+ */
 class Model_Tack extends ORM {
 	protected $_table_name = 'tacks';
 	protected $_table_columns = array(
