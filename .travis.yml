@@ -4,4 +4,9 @@ php:
   - 5.3
   - 5.4
   - 5.5
+services:
+  - postgresql
+before_script:
+  - composer install
+  - vendor/bin/phpmig migrate
 script: (cd application/tests; phpunit)
