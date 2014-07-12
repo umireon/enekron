@@ -9,7 +9,7 @@ class CreateTacks extends Migration
         $schema = new Schema();
         $tacks = $schema->createTable("tacks");
 
-        $tacks->addColumn('id', 'integer', array('unsigned' => true));
+        $tacks->addColumn('id', 'integer', array('autoincrement' => true));
         $tacks->addColumn('title', 'text');
         $tacks->addColumn('content', 'text');
         $tacks->addColumn('created_by', 'string');
