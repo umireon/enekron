@@ -8,9 +8,13 @@ env:
   - DATABASE_DSN=pgsql:user=postgres
   - DATABASE_DSN=sqlite:$PWD/default.sqlite3
 before_script:
-  - (cd dbmigrate; composer install)
-  - (cd dbmigrate; vendor/bin/phpmig migrate)
-script: (cd application/tests; phpunit)
+  - (cd cli; composer install)
+  - (cd cli; vendor/bin/phpmig migrate)
+script:
+  - mkdir -p build/logs
+  - phpunit
+after_script:
+  - (cd cli; vendor/bin/coveralls -v)
 cache:
   directories:
     - vendor

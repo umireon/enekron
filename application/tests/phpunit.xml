@@ -1,7 +1,0 @@
-<phpunit bootstrap="../../index.php">
-	<testsuites>
-		<testsuite name="Kohana Model Tests">
-			<directory>model/</directory>
-		</testsuite>
-	</testsuites>
-</phpunit>
