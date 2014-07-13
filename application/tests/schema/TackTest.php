@@ -29,8 +29,56 @@ class Schema_TackTest extends PHPUnit_Extensions_Database_TestCase
 		);
 	}
 
+	public function testFindById()
+	{
+		$tack = new Model_Tack(1);
+		$this->assertTrue($tack->loaded());
+		$this->assertEquals('title1', $tack->title);
+	}
+
+	public function testNonexistent()
+	{
+		$tack = new Model_Tack(1000);
+		$this->assertFalse($tack->loaded());
+		$this->assertNull($tack->pk());
+	}
+
 	public function testCreate()
 	{
-		new Model_Tack(1);
+		$tack = new Model_Tack();
+		$this->assertNull($tack->pk());
+		$tack->title = 'newTitle';
+		$tack->content = 'newContent';
+		$tack->created_by = 1;
+		$tack->save();
+		$this->assertGreaterThan(1, $tack->pk());
+		$this->assertNotNull(1, $tack->created_at);
+		$this->assertNotNull(1, $tack->modified_at);
+
+		$tack2 = new Model_Tack($tack->pk());
+		$this->assertEquals($tack->pk(), $tack2->pk());
+		$this->assertEquals('newTitle', $tack2->title);
+	}
+
+	public function testUpdate()
+	{
+		$tack = new Model_Tack(1);
+		$tack->title = 'newTitle';
+		$tack->save();
+		$this->assertEquals(1, $tack->pk());
+		$this->assertTrue($tack->modified_at !== $tack->created_at);
+
+		$tack2 = new Model_Tack(1);
+		$this->assertEquals('newTitle', $tack2->title);
+	}
+
+	public function testDelete()
+	{
+		$tack = new Model_Tack(1);
+		$tack->delete();
+		$this->assertNull($tack->pk());
+
+		$tack2 = new Model_Tack(1);
+		$this->assertFalse($tack->loaded());
 	}
 } // End TackTest
