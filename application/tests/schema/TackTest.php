@@ -29,6 +29,15 @@ class Schema_TackTest extends PHPUnit_Extensions_Database_TestCase
 		);
 	}
 
+	public function setUp()
+	{
+		parent::setUp();
+		$driver = self::$pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
+		if ($driver === 'pgsql') {
+			self::$pdo->query("SELECT setval('tacks_id_seq', 1000)");
+		}
+	}
+
 	public function testFindById()
 	{
 		$tack = new Model_Tack(1);
@@ -46,11 +55,15 @@ class Schema_TackTest extends PHPUnit_Extensions_Database_TestCase
 	public function testCreate()
 	{
 		$tack = new Model_Tack();
-		$this->assertNull($tack->pk());
+		$this->assertFalse($tack->loaded());
 		$tack->title = 'newTitle';
 		$tack->content = 'newContent';
 		$tack->created_by = 1;
+		var_dump($tack);
 		$tack->save();
+		var_dump($tack);
+		var_dump(Orm::factory('tack')->find_all());
+		$this->assertTrue($tack->loaded());
 		$this->assertGreaterThan(1, $tack->pk());
 		$this->assertNotNull(1, $tack->created_at);
 		$this->assertNotNull(1, $tack->modified_at);
