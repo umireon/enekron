@@ -7,6 +7,7 @@ php:
 env:
   matrix:
     - DATABASE_DSN=pgsql:user=postgres
+    - DATABASE_DSN=mysql:user=postgres
     - DATABASE_DSN=sqlite:$PWD/default.sqlite3
   global:
     - CODECLIMATE_REPO_TOKEN=9658592d8dd523c19a2da3858a8ba5f0a623d7be56aaf75e7188ae4e0fb7cdcf 
