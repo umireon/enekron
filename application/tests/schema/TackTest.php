@@ -12,13 +12,34 @@ class Schema_TackTest extends PHPUnit_Extensions_Database_TestCase
 	static private $pdo = NULL;
 	private $conn;
 
+	private function getPDO()
+	{
+		if (self::$pdo === NULL) {
+			$db = getenv('DB');
+			$opts = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
+			if ($db === 'sqlite') {
+				$dbpath = getenv('DBPATH');
+				$dsn = "sqlite:$dbpath";
+				self::$pdo = new PDO($dsn, NULL, NULL, $opts);
+			} else {
+				$dbhost = getenv('DBHOST');
+				$dbport = getenv('DBPORT');
+				$dbname = getenv('DBNAME');
+				$dbuser = getenv('DBUSER');
+				$dbpass = getenv('DBPASS');
+				$dsn = "$db:host=$dbhost;dbname=$dbname";
+				self::$pdo = new PDO($dsn, $dbuser, $dbpass, $opts);
+				self::$pdo->exec("SET NAMES 'utf8'");
+			}
+		}
+		return self::$pdo;
+	}
+
 	final public function getConnection()
 	{
 		if ($this->conn === NULL) {
-			if (self::$pdo == NULL) {
-				self::$pdo = new PDO(getenv('DATABASE_DSN'));
-			}
-			$this->conn = $this->createDefaultDBConnection(self::$pdo);
+			$pdo = $this->getPDO();
+			$this->conn = $this->createDefaultDBConnection($pdo);
 		}
 		return $this->conn;
 	}
@@ -59,10 +80,7 @@ class Schema_TackTest extends PHPUnit_Extensions_Database_TestCase
 		$tack->title = 'newTitle';
 		$tack->content = 'newContent';
 		$tack->created_by = 1;
-		var_dump($tack);
 		$tack->save();
-		var_dump($tack);
-		var_dump(Orm::factory('tack')->find_all());
 		$this->assertTrue($tack->loaded());
 		$this->assertGreaterThan(1, $tack->pk());
 		$this->assertNotNull(1, $tack->created_at);

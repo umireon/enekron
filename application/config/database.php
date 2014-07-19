@@ -1,30 +1,34 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 
-return array
-(
-	'default' => array(
-		'type'       => 'pdo',
+$dbpath = getenv('DBPATH');
+$dbhost = getenv('DBHOST');
+$dbname = getenv('DBNAME');
+$dbuser = getenv('DBUSER');
+$dbpass = getenv('DBPASS');
+
+return array(
+	'mysql' => array(
+		'type' => 'pdo',
 		'connection' => array(
-			/**
-			 * The following options are available for PDO:
-			 *
-			 * string   dsn         Data Source Name
-			 * string   username    database username
-			 * string   password    database password
-			 * boolean  persistent  use persistent connections?
-			 */
-			'dsn'        => getenv('DATABASE_DSN'),
-			'username'   => NULL,
-			'password'   => NULL,
+			'dsn'      => "mysql:host=$dbhost;dbname=$dbname",
+			'username' => $dbuser,
+			'password' => $dbpass,
 		),
-		/**
-		 * The following extra options are available for PDO:
-		 *
-		 * string   identifier  set the escaping identifier
-		 */
-		'table_prefix' => '',
-		'charset'      => NULL,
-		'caching'      => FALSE,
-		'profiling'    => TRUE,
+		'charset'      => 'utf8',
+	),
+	'pgsql' => array(
+		'type' => 'pdo',
+		'connection' => array(
+			'dsn'      => "pgsql:host=$dbhost;dbname=$dbname",
+			'username' => $dbuser,
+			'password' => $dbpass,
+		),
+		'charset'      => 'utf8',
+	),
+	'sqlite' => array(
+		'type' => 'pdo',
+		'connection' => array(
+			'dsn'      => "sqlite:$dbpath",
+		),
 	),
 );

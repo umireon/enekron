@@ -6,14 +6,17 @@ php:
   - 5.5
 env:
   matrix:
-    - DATABASE_DSN=pgsql:user=postgres
-    - DATABASE_DSN=mysql:user=postgres
-    - DATABASE_DSN=sqlite:$PWD/default.sqlite3
+    - DB=sqlite DBPATH=$PWD/test.sqlite3
+    - DB=pgsql DBUSER=postgres
+    - DB=mysql DBUSER=travis
   global:
+    - DBHOST=localhost DBNAME=enekron_test
     - CODECLIMATE_REPO_TOKEN=9658592d8dd523c19a2da3858a8ba5f0a623d7be56aaf75e7188ae4e0fb7cdcf 
 before_install:
   - composer self-update; true
 before_script:
+  - mysql -e "create database $DBNAME"
+  - psql -c "create database $DBNAME" -U postgres
   - if [ $(phpenv version-name) = 5.2 ]; then echo "zend_extension = xdebug.so" >> ~/.phpenv/versions/5.2/etc/php.ini; fi
   - if [ $(phpenv version-name) = 5.2 ]; then pear install phpunit/DbUnit; fi
   - (cd cli; composer install)
