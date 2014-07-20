@@ -17,12 +17,14 @@ return array(
 		'charset'      => 'utf8',
 	),
 	'pgsql' => array(
-		'type' => 'pdo',
+		'type' => 'postgresql',
 		'connection' => array(
-			'dsn'      => "pgsql:host=$dbhost;dbname=$dbname",
+			'hostname' => $dbhost,
 			'username' => $dbuser,
 			'password' => $dbpass,
+			'database' => $dbname,
 		),
+		'primary_key'  => 'id',
 		'charset'      => 'utf8',
 	),
 	'sqlite' => array(
