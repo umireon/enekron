@@ -7,6 +7,13 @@ $dbuser = getenv('DBUSER');
 $dbpass = getenv('DBPASS');
 
 return array(
+	'default' => array(
+		'type' => 'pdo',
+		'connection' => array(
+			'dsn'      => 'sqlite:'.APPPATH.'default.sqlite3',
+		),
+		'charset'      => NULL,
+	),
 	'mysql' => array(
 		'type' => 'pdo',
 		'connection' => array(

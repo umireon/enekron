@@ -116,8 +116,7 @@ Kohana::modules(array(
  */
 // Cookie::$salt = NULL;
 
-if (isset($_SERVER['DB']))
-{
+if (isset($_SERVER['DB'])) {
 	Database::$default = $_SERVER['DB'];
 }
 

@@ -17,7 +17,10 @@ class Schema_TackTest extends PHPUnit_Extensions_Database_TestCase
 		if (self::$pdo === NULL) {
 			$db = getenv('DB');
 			$opts = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
-			if ($db === 'sqlite') {
+			if ($db === FALSE) {
+				$dsn = 'sqlite:application/default.sqlite3';
+				self::$pdo = new PDO($dsn, NULL, NULL, $opts);
+			} elseif ($db === 'sqlite') {
 				$dbpath = getenv('DBPATH');
 				$dsn = "sqlite:$dbpath";
 				self::$pdo = new PDO($dsn, NULL, NULL, $opts);
