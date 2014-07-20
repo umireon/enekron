@@ -24,6 +24,7 @@ return array(
 			'password' => $dbpass,
 			'database' => $dbname,
 		),
+		'primary_key'  => 'id',
 		'charset'      => 'utf8',
 	),
 	'sqlite' => array(
