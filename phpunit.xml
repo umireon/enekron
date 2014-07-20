@@ -1,7 +1,10 @@
 <phpunit bootstrap="index.php">
 	<testsuites>
-		<testsuite name="Kohana Model Tests">
+		<testsuite name="Model Unit Tests">
 			<directory>application/tests/model/</directory>
+		</testsuite>
+		<testsuite name="Schema Integration Tests">
+			<directory>application/tests/schema/</directory>
 		</testsuite>
 	</testsuites>
 	<logging>
