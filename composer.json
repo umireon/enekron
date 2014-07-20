@@ -1,4 +1,7 @@
 {
+	"name": "umireon/enekron",
+	"description": "An implementation of web bulletin board",
+	"license": "MIT",
 	"require": {
 		"php": ">=5.2.12"
 	},
