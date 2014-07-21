@@ -1,4 +1,5 @@
 <?php
+require_once 'application/tests/DBTestCase.php';
 
 /**
  * @package    Schema
@@ -7,60 +8,9 @@
  * @copyright  Copyright (c) 2014 Kaito Udagawa
  * @license    http://opensource.org/licenses/MIT
  */
-class Schema_TackTest extends PHPUnit_Extensions_Database_TestCase
+class Schema_TackTest extends DBTestCase
 {
-	static private $pdo = NULL;
-	private $conn;
-
-	private function getPDO()
-	{
-		if (self::$pdo === NULL) {
-			$db = getenv('DB');
-			$opts = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
-			if ($db === FALSE) {
-				$dsn = 'sqlite:application/default.sqlite3';
-				self::$pdo = new PDO($dsn, NULL, NULL, $opts);
-			} elseif ($db === 'sqlite') {
-				$dbpath = getenv('DBPATH');
-				$dsn = "sqlite:$dbpath";
-				self::$pdo = new PDO($dsn, NULL, NULL, $opts);
-			} else {
-				$dbhost = getenv('DBHOST');
-				$dbport = getenv('DBPORT');
-				$dbname = getenv('DBNAME');
-				$dbuser = getenv('DBUSER');
-				$dbpass = getenv('DBPASS');
-				$dsn = "$db:host=$dbhost;dbname=$dbname";
-				self::$pdo = new PDO($dsn, $dbuser, $dbpass, $opts);
-				self::$pdo->exec("SET NAMES 'utf8'");
-			}
-		}
-		return self::$pdo;
-	}
-
-	final public function getConnection()
-	{
-		if ($this->conn === NULL) {
-			$pdo = $this->getPDO();
-			$this->conn = $this->createDefaultDBConnection($pdo);
-		}
-		return $this->conn;
-	}
-
-	final public function getDataSet() {
-		return new PHPUnit_Extensions_Database_DataSet_YamlDataSet(
-			dirname(__FILE__).'/fixture-tacks.yml'
-		);
-	}
-
-	public function setUp()
-	{
-		parent::setUp();
-		$driver = self::$pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
-		if ($driver === 'pgsql') {
-			self::$pdo->query("SELECT setval('tacks_id_seq', 1000)");
-		}
-	}
+	protected $yaml = 'application/tests/fixture/tacks.yml';
 
 	public function testFindById()
 	{
