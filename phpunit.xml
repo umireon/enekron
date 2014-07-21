@@ -3,11 +3,11 @@
 		<testsuite name="Model Unit Tests">
 			<directory>application/tests/model/</directory>
 		</testsuite>
-		<testsuite name="Schema Integration Tests">
+		<testsuite name="Schema Tests">
 			<directory>application/tests/schema/</directory>
 		</testsuite>
+		<testsuite name="Route Tests">
+			<directory>application/tests/controller/</directory>
+		</testsuite>
 	</testsuites>
-	<logging>
-		<log type="coverage-clover" target="build/logs/clover.xml"/>
-	</logging>
 </phpunit>
