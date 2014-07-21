@@ -124,7 +124,16 @@ if (isset($_SERVER['DB'])) {
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
  * defaults for the URI.
  */
-Route::set('default', '(<controller>(/<action>(/<id>)))')
+Route::set('show', '<controller>/<year>/<month>/<day>/<name>',
+	array(
+		'year' => '\d+',
+		'month' => '\d+',
+		'day' => '\d+',
+	))
+	->defaults(array(
+		'action'     => 'show',
+	));
+Route::set('default', '(<controller>(/<action>(/<year>/<month>/<day>/<name>)))')
 	->defaults(array(
 		'controller' => 'welcome',
 		'action'     => 'index',
