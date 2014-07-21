@@ -17,37 +17,22 @@ class Model_Tack extends ORM {
 		'modified_at' => NULL,
 	);
 
-	public function newer()
+	public function create(Validation $validation = NULL)
 	{
-		$this->order_by('modified_at', 'DESC');
-		return $this;
+		$this->created_at = Date::formatted_time();
+		$this->modified_at = $this->created_at;
+
+		return parent::create($validation);
 	}
 
-	public function find_newest_id()
+	public function update(Validation $validation = NULL)
 	{
-		return $this->select('id')->newer()->find()->id;
-	}
-
-	public function in_page(Pagination $pagination)
-	{
-		$this->offset($pagination->offset)
-		     ->limit($pagination->items_per_page);
-		return $this;
-	}
-
-	public function save(Validation $validation = NULL)
-	{
-		if ( ! $this->pk())
-		{
-			$this->created_at = Date::formatted_time();
-		}
-
 		if ( ! isset($this->_changed['modified_at']))
 		{
 			$this->modified_at = Date::formatted_time();
 		}
 
-		return parent::save($validation);
+		return parent::update($validation);
 	}
 
 } // End Tack
