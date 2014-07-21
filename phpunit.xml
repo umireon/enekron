@@ -1,4 +1,4 @@
-<phpunit bootstrap="index.php">
+<phpunit bootstrap="application/bootstrap_unittest.php">
 	<testsuites>
 		<testsuite name="Model Unit Tests">
 			<directory>application/tests/model/</directory>
@@ -6,7 +6,7 @@
 		<testsuite name="Schema Tests">
 			<directory>application/tests/schema/</directory>
 		</testsuite>
-		<testsuite name="Route Tests">
+		<testsuite name="Controller Tests">
 			<directory>application/tests/controller/</directory>
 		</testsuite>
 	</testsuites>
