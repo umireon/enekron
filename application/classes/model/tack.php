@@ -21,7 +21,16 @@ class Model_Tack extends ORM {
 
 	public function find_by_date_and_title($year, $month, $day, $title)
 	{
-		return $this;
+		$year = (int) ltrim($year, '0');
+		$month = (int) ltrim($month, '0');
+		$day = (int) ltrim($day, '0');
+		$title = (string) $title;
+
+		$this->where('year', '=', $year)
+		     ->where('month', '=', $month)
+		     ->where('day', '=', $day)
+		     ->where('title', '=', $title);
+		return $this->find();
 	}
 
 	public function create(Validation $validation = NULL)

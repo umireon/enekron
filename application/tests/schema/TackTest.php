@@ -19,6 +19,14 @@ class Schema_TackTest extends DBTestCase
 		$this->assertEquals('title1', $tack->title);
 	}
 
+	public function testFindByDateAndTitle()
+	{
+		$tack = new Model_Tack();
+		$tack->find_by_date_and_title('2000', '01', '01', 'title1');
+		$this->assertTrue($tack->loaded());
+		$this->assertEquals('title1', $tack->title);
+	}
+
 	public function testNonexistent()
 	{
 		$tack = new Model_Tack(1000);
