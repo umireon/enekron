@@ -54,7 +54,23 @@ abstract class DBTestCase extends PHPUnit_Extensions_Database_TestCase
 
 	public function setUp()
 	{
+		$driver = $this->getPDO()->getAttribute(PDO::ATTR_DRIVER_NAME);
+		if ($driver === 'pgsql') {
+			$connection = $this->getConnection();
+			$dataSet = $this->getDataSet();
+			foreach ($dataSet->getReverseIterator() as $table) {
+				$query = "
+					{$connection->getTruncateCommand()} {$connection->quoteSchemaObject($table->getTableMetaData()->getTableName())}
+				";
+				$query .= " RESTART IDENTITY";
+				try {
+					$connection->getConnection()->query($query);
+				} catch (PDOException $e) {
+					throw new PHPUnit_Extensions_Database_Operation_Exception('TRUNCATE RESTART IDENTITY', $query, array(), $table, $e->getMessage());
+
+				}
+			}
+		}
 		parent::setUp();
-		$driver = self::$pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
 	}
 } // End DBTestCase
