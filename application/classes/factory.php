@@ -13,7 +13,6 @@ class Factory {
 
 	public function view($file, $data = NULL)
 	{
-		return ORM::factory($model, $data);
+		return View::factory($file, $data);
 	}
 } // End Factory
-

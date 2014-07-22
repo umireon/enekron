@@ -13,7 +13,7 @@ class Route_TacksTest extends PHPUnit_Framework_TestCase
 		'year'  => '2014',
 		'month' => '07',
 		'day'   => '21',
-		'name'  => 'title',
+		'title'  => 'title',
 	);
 
 	protected $path = '2014/07/21/title';
