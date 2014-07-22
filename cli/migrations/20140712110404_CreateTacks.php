@@ -10,13 +10,28 @@ class CreateTacks extends Migration
 		$tacks = $schema->createTable("tacks");
 
 		$tacks->addColumn('id', 'integer', array('autoincrement' => true));
-		$tacks->addColumn('title', 'text');
+		$tacks->addColumn('title', 'string', array('length' => 255));
 		$tacks->addColumn('content', 'text');
-		$tacks->addColumn('created_by', 'string');
+		$tacks->addColumn('year', 'integer', array(
+			'customSchemaOptions' => array(
+				'check' => 'CHECK(year >= 0 AND year <= 9999)',
+			)
+		));
+		$tacks->addColumn('month', 'integer', array(
+			'customSchemaOptions' => array(
+				'check' => 'CHECK(month >= 1 AND month <= 12)',
+			)
+		));
+		$tacks->addColumn('day', 'integer', array(
+			'customSchemaOptions' => array(
+				'check' => 'CHECK(day >= 1 AND day <= 31)',
+			)
+		));
 		$tacks->addColumn('created_at', 'datetime');
 		$tacks->addColumn('modified_at', 'datetime');
 
 		$tacks->setPrimaryKey(array('id'));
+		$tacks->addUniqueIndex(array('year', 'month', 'day', 'title'));
 
 		return $schema;
 	}

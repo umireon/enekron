@@ -32,7 +32,9 @@ class Schema_TackTest extends DBTestCase
 		$this->assertFalse($tack->loaded());
 		$tack->title = 'newTitle';
 		$tack->content = 'newContent';
-		$tack->created_by = 1;
+		$tack->year = 2000;
+		$tack->month = 1;
+		$tack->day = 1;
 		$tack->save();
 		$this->assertTrue($tack->loaded());
 		$this->assertGreaterThan(1, $tack->pk());

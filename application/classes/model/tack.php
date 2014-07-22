@@ -12,10 +12,17 @@ class Model_Tack extends ORM {
 		'id' => NULL,
 		'title' => NULL,
 		'content' => NULL,
-		'created_by' => NULL,
+		'year' => NULL,
+		'month' => NULL,
+		'day' => NULL,
 		'created_at' => NULL,
 		'modified_at' => NULL,
 	);
+
+	public function find_by_date_and_title($year, $month, $day, $title)
+	{
+		return $this;
+	}
 
 	public function create(Validation $validation = NULL)
 	{
