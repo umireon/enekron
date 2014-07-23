@@ -6,47 +6,44 @@ use \Doctrine\DBAL\DriverManager;
 
 $container = new Pimple();
 
-$container['db.driver'] = function () {
-	$db = getenv('DB');
-	return "pdo_$db";
-};
+$container['db.driver'] = getenv('DB') ?: 'default';
 
-$container['db.sqlite'] = function ($c) {
-	return DriverManager::getConnection(array(
-		'driver'   => 'pdo_sqlite',
-		'user'     => getenv('DBUSER'),
-		'password' => getenv('DBPASS'),
-		'path'     => getenv('DBPATH'),
-	));
-};
+$container['db.default'] = array(
+	'driver'   => 'pdo_sqlite',
+	'path'     => '../application/default.sqlite3',
+);
 
-$container['db.mysql'] = function ($c) {
-	return DriverManager::getConnection(array(
-		'driver'   => 'pdo_mysql',
-		'user'     => getenv('DBUSER'),
-		'password' => getenv('DBPASS'),
-		'host'     => getenv('DBHOST'),
-		'port'     => getenv('DBPORT'),
-		'dbname'   => getenv('DBNAME'),
-		'charset'  => 'utf8',
-	));
-};
+$container['db.sqlite'] = array(
+	'driver'   => 'pdo_sqlite',
+	'user'     => getenv('DBUSER'),
+	'password' => getenv('DBPASS'),
+	'path'     => getenv('DBPATH'),
+);
 
-$container['db.pgsql'] = function ($c) {
-	return DriverManager::getConnection(array(
-		'driver'   => 'pdo_pgsql',
-		'user'     => getenv('DBUSER'),
-		'password' => getenv('DBPASS'),
-		'host'     => getenv('DBHOST'),
-		'port'     => getenv('DBPORT'),
-		'dbname'   => getenv('DBNAME'),
-		'charset'  => 'utf8',
-	));
-};
+$container['db.mysql'] = array(
+	'driver'   => 'pdo_mysql',
+	'user'     => getenv('DBUSER'),
+	'password' => getenv('DBPASS'),
+	'host'     => getenv('DBHOST'),
+	'port'     => getenv('DBPORT'),
+	'dbname'   => getenv('DBNAME'),
+	'charset'  => 'utf8',
+);
+
+$container['db.pgsql'] = array(
+	'driver'   => 'pdo_pgsql',
+	'user'     => getenv('DBUSER'),
+	'password' => getenv('DBPASS'),
+	'host'     => getenv('DBHOST'),
+	'port'     => getenv('DBPORT'),
+	'dbname'   => getenv('DBNAME'),
+	'charset'  => 'utf8',
+);
 
 $container['db'] = function ($c) {
-	$db = getenv('DB');
-	return $c["db.$db"];
+	$driver = $c['db.driver'];
+	$config = $c["db.$driver"];
+	return DriverManager::getConnection($config);
 };
 
 $container['phpmig.adapter'] = function ($c) {

@@ -12,42 +12,48 @@ class Model_Tack extends ORM {
 		'id' => NULL,
 		'title' => NULL,
 		'content' => NULL,
-		'created_by' => NULL,
+		'year' => NULL,
+		'month' => NULL,
+		'day' => NULL,
 		'created_at' => NULL,
 		'modified_at' => NULL,
 	);
 
-	public function newer()
+	public function find_by_date_and_title($year, $month, $day, $title)
 	{
-		$this->order_by('modified_at', 'DESC');
-		return $this;
+		$year = (int) ltrim($year, '0');
+		$month = (int) ltrim($month, '0');
+		$day = (int) ltrim($day, '0');
+		$title = (string) $title;
+
+		$this->where('year', '=', $year)
+		     ->where('month', '=', $month)
+		     ->where('day', '=', $day)
+		     ->where('title', '=', $title);
+		return $this->find();
 	}
 
-	public function find_newest_id()
+	public function create(Validation $validation = NULL)
 	{
-		return $this->select('id')->newer()->find()->id;
+		$now = new DateTime;
+		$this->created_at = $now->format('Y-m-d H:i:s');
+		$this->modified_at = $this->created_at;
+
+		$this->year = (int) $now->format('Y');
+		$this->month = (int) $now->format('n');
+		$this->day = (int) $now->format('j');
+
+		return parent::create($validation);
 	}
 
-	public function in_page(Pagination $pagination)
+	public function update(Validation $validation = NULL)
 	{
-		$this->offset($pagination->offset)
-		     ->limit($pagination->items_per_page);
-		return $this;
-	}
-
-	public function save(Validation $validation = NULL)
-	{
-		if ( ! $this->pk())
-		{
-			$this->created_at = Date::formatted_time();
-		}
-
 		if ( ! isset($this->_changed['modified_at']))
 		{
 			$this->modified_at = Date::formatted_time();
 		}
 
-		return parent::save($validation);
+		return parent::update($validation);
 	}
 
 } // End Tack

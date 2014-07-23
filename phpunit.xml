@@ -1,13 +1,19 @@
-<phpunit bootstrap="index.php">
+<phpunit bootstrap="application/bootstrap_unittest.php">
 	<testsuites>
-		<testsuite name="Model Unit Tests">
-			<directory>application/tests/model/</directory>
-		</testsuite>
-		<testsuite name="Schema Integration Tests">
+		<testsuite name="Schema Tests">
 			<directory>application/tests/schema/</directory>
 		</testsuite>
+		<testsuite name="Model Tests">
+			<directory>application/tests/model/</directory>
+		</testsuite>
+		<testsuite name="Controller Tests">
+			<directory>application/tests/controller/</directory>
+		</testsuite>
+		<testsuite name="Route Tests">
+			<directory>application/tests/route/</directory>
+		</testsuite>
+		<testsuite name="Integration Tests">
+			<directory>application/tests/integration/</directory>
+		</testsuite>
 	</testsuites>
-	<logging>
-		<log type="coverage-clover" target="build/logs/clover.xml"/>
-	</logging>
 </phpunit>
