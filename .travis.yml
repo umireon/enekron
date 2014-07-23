@@ -18,7 +18,7 @@ before_script:
   - sh .travis/apache.sh
   - mysql -e "create database $DBNAME"
   - psql -c "create database $DBNAME" -U postgres
-  - if [ $(phpenv version-name) = 5.2 ]; then echo "zend_extension = xdebug.so" >> ~/.phpenv/versions/5.2/etc/php.ini; fi
+  - if [ $(phpenv version-name) = 5.2 ]; then echo "extension = xdebug.so" >> ~/.phpenv/versions/5.2/etc/php.ini; fi
   - if [ $(phpenv version-name) = 5.2 ]; then pear install phpunit/DbUnit; fi
   - (cd cli; composer install)
   - (cd cli; vendor/bin/phpmig migrate)
