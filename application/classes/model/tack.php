@@ -35,8 +35,13 @@ class Model_Tack extends ORM {
 
 	public function create(Validation $validation = NULL)
 	{
-		$this->created_at = Date::formatted_time();
+		$now = new DateTime;
+		$this->created_at = $now->format('Y-m-d H:i:s');
 		$this->modified_at = $this->created_at;
+
+		$this->year = (int) $now->format('Y');
+		$this->month = (int) $now->format('n');
+		$this->day = (int) $now->format('j');
 
 		return parent::create($validation);
 	}

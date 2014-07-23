@@ -3,6 +3,9 @@
 		<testsuite name="Schema Tests">
 			<directory>application/tests/schema/</directory>
 		</testsuite>
+		<testsuite name="Model Tests">
+			<directory>application/tests/model/</directory>
+		</testsuite>
 		<testsuite name="Controller Tests">
 			<directory>application/tests/controller/</directory>
 		</testsuite>
