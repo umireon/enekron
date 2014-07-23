@@ -24,7 +24,7 @@ before_script:
   - (cd cli; vendor/bin/phpmig migrate)
 script:
   - mkdir -p build/logs
-  - phpunit
+  - phpunit --coverage-clover build/logs/clover.xml
 after_script:
   - (cd cli; vendor/bin/coveralls -v)
   - cli/vendor/bin/test-reporter
